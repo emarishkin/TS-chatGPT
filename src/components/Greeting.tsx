@@ -29,13 +29,20 @@ export const Greeting:FC<GreetingProps> = ({fontWeight,fontSize,width,color}) =>
         setNames([])
     }
 
+    const removeName = (nameToRemove:string) =>{
+       setNames(names.filter(name=>name!==nameToRemove))
+    }
+
+
+
     return(
         <div style={{fontWeight,fontSize,width,color}}>
             <h3>список имен:</h3>
            <ol>
             {names.map((name,index)=>(
-                <li key={index}>
+                <li style={{display:'flex',justifyContent:'center',gap:20}} key={index}>
                     {name}
+                    <Button width={"100px"} height={"80px"} fontSize={"15px"} alignItems={'center'}onClick={()=>removeName(name)}>Удалить имя</Button>
                 </li>
             ))}
            </ol>
