@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-       <Greeting width={'660px'} fontWeight={'bold'} fontSize={'82px'}  />
+       <Greeting width={'660px'} fontWeight={'bold'} fontSize={'82px'} color='red'  />
     </>
   )
 }
