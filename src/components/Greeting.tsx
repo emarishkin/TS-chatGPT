@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useState } from "react";
+import { Button } from "./Button";
 
 interface GreetingProps{
     fontSize:string
@@ -10,27 +11,42 @@ interface GreetingProps{
 
 export const Greeting:FC<GreetingProps> = ({fontWeight,fontSize,width,color}) =>{
 
-    const [name,setName] = useState<string>('Egor')
-
-    const colName = () =>{
-        setName('Игорь')
+    const [names,setNames] = useState<string[]>(['Egor','Igor'])
+    const [newName,setNewName] = useState<string>('')
+    
+    const ChangeName = (e:ChangeEvent<HTMLInputElement>) => {
+        setNewName(e.target.value)
     }
 
-    const changeName = (event:ChangeEvent<HTMLInputElement>) =>{
-        setName(event.target.value)
+    const addName = () =>{
+        if(newName!==''){
+            setNames([...names,newName])
+            setNewName("");
+        }
     }
-     
-    const clearName = () =>{
-        setName('')
+    
+    const clearList = () => {
+        setNames([])
     }
 
     return(
         <div style={{fontWeight,fontSize,width,color}}>
-            <h3>{name}</h3>
-            <button onClick={colName}>изменить имя!</button>
-            <button onClick={clearName}>очистить имя!</button>
+            <h3>список имен:</h3>
+           <ol>
+            {names.map((name,index)=>(
+                <li key={index}>
+                    {name}
+                </li>
+            ))}
+           </ol>
 
-            <input style={{width:600,height:100,fontSize:30}} type="text" value={name} onChange={changeName} placeholder="Введи свое имя"  />
+           <input style={{width:600,height:100,fontSize:30,marginBottom:20}} type="text" value={newName} onChange={ChangeName} placeholder="введи имя" />
+           <div style={{display:'flex',justifyContent:'center',gap:20}}>
+          <Button onClick={addName}>добавить новое имя +</Button>
+          <Button onClick={clearList}>очистить список</Button>
+           </div>
+           
+           
         </div>
     )
 }
